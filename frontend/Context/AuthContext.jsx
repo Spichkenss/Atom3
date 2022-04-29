@@ -1,16 +1,17 @@
+import { observer } from "mobx-react-lite"
 import { createContext } from "react"
 import Store from "../store/Store"
 
+const store = new Store()
+export const Context = createContext({ user: store })
 
-export const Context = createContext({ user: new Store() })
-
-const AuthContext = ({ children }) => {
+const AuthContext = observer(({ children }) => {
 
     return (
-        <Context.Provider value={{ user: new Store() }}>
+        <Context.Provider value={{ user: store }}>
             {children}
         </Context.Provider>
     )
-}
+})
 
 export default AuthContext

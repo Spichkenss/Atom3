@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const API_URL = `http://192.168.1.4:5000/`
+export const API_URL = `http://192.168.8.100:5000/`
 
 const $host = axios.create({
     withCredentials: true,
@@ -18,6 +18,7 @@ const authInterceptor = async (config) => {
         .then(res => {
             config.headers.authorization = `Bearer ${res}`
         })
+    console.log(config.headers.authorization)
     return config;
 }
 

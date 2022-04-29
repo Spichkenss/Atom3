@@ -12,6 +12,7 @@ const generateJwt = (id, email) => {
 }
 
 class UserController {
+
     async registration(req, res, next) {
         const { email, password } = req.body
         if (!email || !password) {
@@ -42,7 +43,6 @@ class UserController {
     }
 
     async check(req, res, next) {
-        console.log(req)
         const token = generateJwt(req.user.id, req.user.email)
         return res.json({ token })
     }

@@ -9,7 +9,7 @@ import { Context } from '../../../Context/AuthContext';
 import { observer } from 'mobx-react-lite';
 import { login } from '../../../http/UserAPI';
 
-const Login = ({ navigation }) => {
+const Login = observer(({ navigation }) => {
 
     const { theme } = useTheme()
     const { user } = useContext(Context)
@@ -23,7 +23,15 @@ const Login = ({ navigation }) => {
 
     const onSubmit = async () => {
         const { Login, Password } = getValues()
-        await login(Login, Password)
+        try {
+            await login(Login, Password)
+                .then(data => {
+                    user.setUser(data)
+                    user.setIsAuth(true)
+                })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     return (
@@ -102,6 +110,7 @@ const Login = ({ navigation }) => {
         </View>
     )
 }
+)
 
 export default Login
 
